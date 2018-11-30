@@ -1,20 +1,69 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ESB demo</a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Скаут<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Личный кабинет</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+
+
+<p-panel header="Получение статистики по топливу">
+  <div class="container-fluid">
+    <p-dropdown
+      [options]="units"
+      optionLabel="id"
+      [(ngModel)]="selectedUnit"
+      [style]="{'width':'100px'}"
+      editable="true"
+      required="true"
+      name="Юнит">
+    </p-dropdown>
+  </div>
+
+<form>
+<div class="form-group">
+  <div class="form-group form-inline">
+    <label class="control-label col-sm-3 col-lg-3">Период от</label>
+    <div class="col-sm-9">
+      <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
+    </div>
+  </div>
+
+  <div class="form-group form-inline">
+    <label class="control-label col-sm-3 col-lg-3">Период по</label>
+    <div class="col-sm-9">
+      <div class="col-sm-9">
+        <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <p-button label="Получить"
+            (onClick)="handleClick($event)"
+            styleClass="ui-button-success"></p-button>
+</form>
+</p-panel>
+
+<div class="container-fluid">
+  <img class="img-responsive" src="assets/images/sheme1.png">
+</div>
+
+
 
