@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import {AutoCompleteModule, ButtonModule, CalendarModule, DropdownModule, PanelModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
+import {ScoutService} from './scout.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -13,13 +16,14 @@ import {FormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     CalendarModule,
     PanelModule,
     FormsModule,
     ButtonModule,
     DropdownModule
   ],
-  providers: [],
+  providers: [ScoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

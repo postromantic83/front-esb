@@ -22,43 +22,60 @@
 </div>
 
 
-
 <p-panel header="Получение статистики по топливу">
-  <div class="container-fluid">
-    <p-dropdown
-      [options]="units"
-      optionLabel="id"
-      [(ngModel)]="selectedUnit"
-      [style]="{'width':'100px'}"
-      editable="true"
-      required="true"
-      name="Юнит">
-    </p-dropdown>
-  </div>
-
-<form>
-<div class="form-group">
-  <div class="form-group form-inline">
-    <label class="control-label col-sm-3 col-lg-3">Период от</label>
-    <div class="col-sm-9">
-      <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
+  <div class="form-group">
+    <div class="container-fluid">
+      <label class="control-label col-sm-6 col-lg-3 col-xl-3">Юнит: </label>
+      <p-dropdown
+        class="col-sm-6 col-lg-9 col-xl-9"
+        [options]="units"
+        optionLabel="id"
+        [(ngModel)]="selectedUnit"
+        [style]="{'width':'100px'}"
+        editable="true"
+        required="true"
+        name="Юнит">
+      </p-dropdown>
     </div>
-  </div>
 
-  <div class="form-group form-inline">
-    <label class="control-label col-sm-3 col-lg-3">Период по</label>
-    <div class="col-sm-9">
-      <div class="col-sm-9">
-        <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
+
+    <div class="row">
+      <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
+      <div class="col-sm-6 col-lg-9 col-xl-9">
+        <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
       </div>
     </div>
-  </div>
-</div>
 
-  <p-button label="Получить"
-            (onClick)="handleClick($event)"
+    <div class="row">
+      <label class="control-label col-sm-6 col-lg-3">Период по</label>
+        <div class="col-sm-6 col-lg-9 col-xl-9">
+          <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <!--<p-button label="Получить"-->
+            <!--(onClick)="handleClick($event)"-->
+            <!--styleClass="ui-button-success"></p-button>-->
+
+  <p-button label="Топливо"
+            style="padding-left: 20px"
+            (onClick)="fuel($event)"
             styleClass="ui-button-success"></p-button>
-</form>
+  </div>
+  <p-button label="Одометр"
+            style="padding-left: 20px"
+            (onClick)="fuel($event)"
+            styleClass="ui-button-success"></p-button>
+  </div>
+
+
+  <h5 *ngIf="fuelStatistic" >Ответ по топливу:</h5>
+  <h5>{{fuelStatistic | json}}</h5>
+
+
+
 </p-panel>
 
 <div class="container-fluid">
