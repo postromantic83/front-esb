@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {Unit} from './model/unit.model';
-import {FuelStatistic} from './model/FuelStatistic';
+import {FuelStatistic} from './model/fuelstatistic.model';
 @Injectable()
 export class ScoutService {
   constructor(private http: HttpClient) { }
@@ -20,5 +20,12 @@ export class ScoutService {
       'request.unitId=' + unit.id +
       '&request.beginDateTime=' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00' +
       '&request.endDateTime=' + endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate() + ' 01:01:00');
+  }
+
+  public test(unit: Unit, startDate: Date, endDate: Date): Observable<FuelStatistic> {
+    return this.http.get<FuelStatistic>(this.scoutFuelURL +
+      'request.unitId=' + 51007 +
+      '&request.beginDateTime=' + '2018/10/10 00:00:00' +
+      '&request.endDateTime=' + '2018/11/11 00:00:00');
   }
 }

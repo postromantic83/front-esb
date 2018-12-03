@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ScoutService} from './scout.service';
 import {Unit} from './model/unit.model';
 import {forEach} from '@angular/router/src/utils/collection';
-import {FuelStatistic} from './model/FuelStatistic';
+import {FuelStatistic} from './model/fuelstatistic.model';
+import {FuelFlatResult} from './model/fuel-flat-result.model';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,8 @@ import {FuelStatistic} from './model/FuelStatistic';
 export class AppComponent implements OnInit {
   title = 'front';
   public units: Unit[];
-  public responseResult: string;
-  public fuelStatistic: FuelStatistic;
+  public fuelFlatResult: FuelFlatResult;
+  public fuelStatistic: FuelStatistic[];
   selectedUnit: Unit;
   public ids: number[];
   startDate: Date;
@@ -44,15 +45,22 @@ export class AppComponent implements OnInit {
   }
   fuel() {
     console.log('Получение топлива');
-    this.scoutService.getFuel(this.selectedUnit, this.startDate, this.endDate).subscribe(
-      (response: FuelStatistic) => {
+    this.scoutService.test(this.selectedUnit, this.startDate, this.endDate).subscribe(
+      (fuelStatistic: FuelStatistic) => {
           // const data = response.json();
           // this.responseResult = response.json();
         // response.forEach(function(value) {
-          console.log('responseResult: ' + response.unitId);
-          console.log('FuelResult: ' + response.intervals);
-          this.fuelStatistic = response;
-          // console.log('Response: ' + data);
+        if (fuelStatistic) {
+          console.log('UnitId: ' + fuelStatistic.unitId);
+          console.log('UnitId: ' + fuelStatistic.unitId);
+          console.log('Begin: ' + fuelStatistic.intervals[0].begin);
+          this.fuelFlatResult = new FuelFlatResult();
+          this.fuelFlatResult.unitId = fuelStatistic.unitId;
+          this.fuelFlatResult.startDate = fuelStatistic.intervals[0].begin;
+          this.fuelFlatResult.endDate = fuelStatistic.intervals[0].end;
+          this.fuelFlatResult.startValue = fuelStatistic.intervals[0].beginFuel.value;
+          this.fuelFlatResult.endValue = fuelStatistic.intervals[0].endFuel.value;
+        }
         // });
       },
       error => console.log(error)

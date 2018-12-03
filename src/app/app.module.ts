@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {ScoutService} from './scout.service';
 import { HttpClientModule } from '@angular/common/http';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    TableModule,
     HttpClientModule,
     CalendarModule,
     PanelModule,

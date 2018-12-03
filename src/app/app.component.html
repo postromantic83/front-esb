@@ -63,15 +63,37 @@
             style="padding-left: 20px"
             (onClick)="fuel($event)"
             styleClass="ui-button-success"></p-button>
-  </div>
   <p-button label="Одометр"
             style="padding-left: 20px"
             (onClick)="fuel($event)"
             styleClass="ui-button-success"></p-button>
   </div>
-
-
   <h5 *ngIf="fuelStatistic" >Ответ по топливу:</h5>
+  <br>
+  <h1>{{fuelFlatResult?.unitId}}</h1>
+<p-table>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Дата</th>
+      <th>Количество</th>
+      <th>Примечание</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-interval>
+    <tr>
+      <td>
+        <!--<h5>{{begin}}</h5>-->
+      </td>
+      <!--<td>Пусто</td>-->
+      <td>Привет</td>
+      <td>Алло</td>
+      <!--<td>{{fuelStatistic?.intervals.beginFuel.value}}</td>-->
+      <!--<td>{{fuelStatistic?.intervals.beginFuel.noValueReason}}</td>-->
+    </tr>
+  </ng-template>
+</p-table>
+
+
   <h5>{{fuelStatistic | json}}</h5>
 
 
