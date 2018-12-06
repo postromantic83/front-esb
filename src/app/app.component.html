@@ -2,22 +2,21 @@
   <a class="navbar-brand" routerLink="/">
     <img alt="" src="assets/images/logo-svg.svg">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/scout">СКАУТ <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/scout" routerLinkActive="active">СКАУТ </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/crm">ЦРМ</a>
+        <a class="nav-link" routerLink="/crm" routerLinkActive="active">Личный кабинет</a>
       </li>
     </ul>
   </div>
-
-
-
+  <h1 align="right">ESB сервисная шина</h1>
 </nav>
 
 <router-outlet></router-outlet>

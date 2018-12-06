@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Unit} from '../model/unit.model';
-import {FuelFlatResult} from '../model/fuel-flat-result.model';
-import {FuelStatistic} from '../model/fuelstatistic.model';
-import {ScoutService} from '../services/scout.service';
+import {Unit} from '../../model/unit.model';
+import {FuelFlatResult} from '../../model/fuel-flat-result.model';
+import {FuelStatistic} from '../../model/fuelstatistic.model';
+import {ScoutService} from '../../services/scout.service';
 
 @Component({
   selector: 'app-scout',
