@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {Unit} from '../model/unit.model';
 import {FuelStatistic} from '../model/fuelstatistic.model';
+import {OdoStatistic} from '../model/odo_statistic.model';
 @Injectable()
 export class ScoutService {
   constructor(private http: HttpClient) { }
@@ -17,6 +18,16 @@ export class ScoutService {
     console.log('EndDate: ' + endDate);
     console.log('Date To String:' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00');
     return this.http.get<FuelStatistic>(this.scoutFuelURL +
+      'request.unitId=' + unit.id +
+      '&request.beginDateTime=' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00' +
+      '&request.endDateTime=' + endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate() + ' 01:01:00');
+  }
+  public getOdometer(unit: Unit, startDate: Date, endDate: Date): Observable<OdoStatistic> {
+    console.log('SelectedUnit: ' + unit.id);
+    console.log('StartDate: ' + startDate);
+    console.log('EndDate: ' + endDate);
+    console.log('Date To String:' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00');
+    return this.http.get<OdoStatistic>(this.scoutFuelURL +
       'request.unitId=' + unit.id +
       '&request.beginDateTime=' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00' +
       '&request.endDateTime=' + endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate() + ' 01:01:00');

@@ -3,6 +3,7 @@ import {Unit} from '../../model/unit.model';
 import {FuelFlatResult} from '../../model/fuel-flat-result.model';
 import {FuelStatistic} from '../../model/fuelstatistic.model';
 import {ScoutService} from '../../services/scout.service';
+import {OdoStatistic} from '../../model/odo_statistic.model';
 
 @Component({
   selector: 'app-scout',
@@ -14,6 +15,7 @@ export class ScoutComponent implements OnInit{
   public units: Unit[];
   public fuelFlatResult: FuelFlatResult;
   public fuelStatistic: FuelStatistic[];
+  public odoStatistic: OdoStatistic[];
   selectedUnit: Unit;
   public ids: number[];
   startDate: Date;
@@ -44,7 +46,7 @@ export class ScoutComponent implements OnInit{
   }
   fuel() {
     console.log('Получение топлива');
-    this.scoutService.test(this.selectedUnit, this.startDate, this.endDate).subscribe(
+    this.scoutService.getFuel(this.selectedUnit, this.startDate, this.endDate).subscribe(
       (fuelStatistic: FuelStatistic) => {
         // const data = response.json();
         // this.responseResult = response.json();
@@ -68,5 +70,26 @@ export class ScoutComponent implements OnInit{
   }
   odometer() {
     console.log('Статистика по одометру');
+    this.scoutService.getOdometer(this.selectedUnit, this.startDate, this.endDate).subscribe(
+      (odoStatistic: OdoStatistic) => {
+        // const data = response.json();
+        // this.responseResult = response.json();
+        // response.forEach(function(value) {
+        this.odoStatistic = [odoStatistic];
+        if (odoStatistic) {
+          console.log('UnitId: ' + odoStatistic.unitId);
+          console.log('UnitId: ' + odoStatistic.unitId);
+          console.log('Begin: ' + odoStatistic.intervals[0].begin);
+          // this.odoStatistic = new OdoStatistic();
+          // this.odoStatistic.unitId = fuelStatistic.unitId;
+          // this.odoStatistic.startDate = fuelStatistic.intervals[0].begin;
+          // this.odoStatistic.endDate = fuelStatistic.intervals[0].end;
+          // this.odoStatistic.startValue = fuelStatistic.intervals[0].beginFuel.value;
+          // this.odoStatisti.endValue = fuelStatistic.intervals[0].endFuel.value;
+        }
+        // });
+      },
+      error => console.log(error)
+    );
   }
 }

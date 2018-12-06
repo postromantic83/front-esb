@@ -32,6 +32,7 @@
              </div>
            </div>
          </div>
+
          <div class="row">
            <p-button label="Топливо"
                      style="padding-left: 20px"
@@ -72,6 +73,36 @@
 
        </p-tabPanel>
        <p-tabPanel header="одометр">
+         <div class="form-group">
+           <div class="container-fluid">
+             <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
+             <p-dropdown
+               class="col-sm-6 col-lg-9 col-xl-9"
+               [options]="units"
+               optionLabel="id"
+               [(ngModel)]="selectedUnit"
+               [style]="{'width':'100px'}"
+               editable="true"
+               required="true"
+               name="Юнит">
+             </p-dropdown>
+           </div>
+
+           <div class="row">
+             <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
+             <div class="col-sm-6 col-lg-9 col-xl-9">
+               <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
+             </div>
+           </div>
+
+           <div class="row">
+             <label class="control-label col-sm-6 col-lg-3">Период по</label>
+             <div class="col-sm-6 col-lg-9 col-xl-9">
+               <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
+             </div>
+           </div>
+         </div>
+
 
          <div class="row">
          <p-button label="Одометр"
@@ -82,13 +113,7 @@
          <img id="scheme2" class="img-fluid" src="assets/images/sh_odometer.png">
        </p-tabPanel>
      </p-tabView>
-
-
-
-
-
   </p-panel>
-
 </div>
 
 
