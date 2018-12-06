@@ -2,17 +2,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {AutoCompleteModule, ButtonModule, CalendarModule, DropdownModule, PanelModule} from 'primeng/primeng';
+import {ButtonModule, CalendarModule, DropdownModule, PanelModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import {ScoutService} from './scout.service';
+import {ScoutService} from './services/scout.service';
 import { HttpClientModule } from '@angular/common/http';
 import {TableModule} from 'primeng/table';
+import {RouterModule, Routes} from '@angular/router';
+import {CrmComponent} from './pages/crm.component';
+import {ScoutComponent} from './pages/scout.component';
 
+const routes: Routes = [
+  { path: '', redirectTo: '/scout', pathMatch: 'full'},
+  { path: 'scout', component: ScoutComponent },
+  { path: 'crm', component: CrmComponent }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, ScoutComponent, CrmComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +31,15 @@ import {TableModule} from 'primeng/table';
     PanelModule,
     FormsModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    RouterModule.forRoot(routes)
   ],
+  exports: [RouterModule],
   providers: [ScoutService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+
+export class AppModule {
+
+}

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {Unit} from './model/unit.model';
-import {FuelStatistic} from './model/fuelstatistic.model';
+import {Unit} from '../model/unit.model';
+import {FuelStatistic} from '../model/fuelstatistic.model';
 @Injectable()
 export class ScoutService {
   constructor(private http: HttpClient) { }
