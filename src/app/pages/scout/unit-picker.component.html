@@ -1,0 +1,35 @@
+<div class="form-group container">
+  <div class="row">
+    <label class="control-label col-sm-2">Ид бензовоза: </label>
+    <p-dropdown
+      [(ngModel)]="statusSelect.selectedUnit"
+      [options]="units"
+      [style]="{'width':100}"
+      class="col-sm-2"
+      editable="true"
+      name="Юнит"
+      optionLabel="id"
+      required="true"
+      (ngModelChange)="selectorUnitChanged()">
+    </p-dropdown>
+    <div class="col-sm-10"></div>
+  </div>
+
+  <div class="row">
+    <label class="control-label col-sm-2">Период от</label>
+    <div class="col-sm-2">
+      <p-calendar [(ngModel)]="statusSelect.startDate"
+                  (ngModelChange)="selectorUnitChanged()"
+                  required="true" dateFormat="dd.mm.yy"></p-calendar>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="control-label col-sm-2">Период по</label>
+    <div class="col-sm-2">
+      <p-calendar [(ngModel)]="statusSelect.endDate"
+                  (ngModelChange)="selectorUnitChanged()"
+                  required="true" dateFormat="dd.mm.yy"></p-calendar>
+    </div>
+  </div>
+</div>

@@ -2,145 +2,98 @@
   <p-panel header="Получение статистики">
     <p-tabView>
       <p-tabPanel header="топливо">
-        <div class="form-group">
-          <div class="container-fluid">
-            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
-            <p-dropdown
-              [(ngModel)]="selectedUnit"
-              [options]="units"
-              [style]="{'width':'100px'}"
-              class="col-sm-6 col-lg-9 col-xl-9"
-              editable="true"
-              name="Юнит"
-              optionLabel="id"
-              required="true">
-            </p-dropdown>
+
+        <app-unit-picker (selChanged)="selectorChanged($event)"></app-unit-picker>
+        <div class="form-group container">
+          <div class="row">
+            <label class="control-label col-sm-2">По дням</label>
+            <p-inputSwitch (onChange)="handleFuelDaylyChange($event)"
+                           [(ngModel)]="daylyFuelChecked"
+                           class="col-sm-2"
+                           styleClass="padding-left: 20px">По дням
+            </p-inputSwitch>
           </div>
 
           <div class="row">
-            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
-            <div class="col-sm-6 col-lg-9 col-xl-9">
-              <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
-            </div>
-          </div>
-
-          <div class="row">
-            <label class="control-label col-sm-6 col-lg-3">Период по</label>
-            <div class="col-sm-6 col-lg-9 col-xl-9">
-              <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
-            </div>
+            <div class="col-sm-2"></div>
+            <p-button (onClick)="fuel($event)"
+                      class="col-sm-2"
+                      label="Топливо"
+                      style="padding-left: 20px"
+                      styleClass="ui-button-success"></p-button>
           </div>
         </div>
 
-        <h5 class="first">По дням</h5>
-        <p-inputSwitch [(ngModel)]="daylychecked" styleClass="padding-left: 20px">По дням</p-inputSwitch>
-
-        <div class="row">
-          <p-button (onClick)="fuel($event)"
-                    label="Топливо"
-                    style="padding-left: 20px"
-                    styleClass="ui-button-success"></p-button>
-
-        </div>
         <h5 *ngIf="fuelStatistic">Ответ по топливу:</h5>
         <br>
 
 
-        <table *ngIf="fuelFlatResult" class="table table-bordered">
+        <table *ngIf="fuelStatistic" class="table table-bordered">
           <thead class="thead-light">
           <tr>
-            <th scope="col-sm-3">#</th>
-            <th scope="col-sm-3">Дата</th>
-            <th scope="col-sm-3">Количество</th>
-            <th scope="col-sm-3">Примечание</th>
+            <th scope="col-sm-4">Дата</th>
+            <th scope="col-sm-4">Количество</th>
+            <th scope="col-sm-4">Примечание</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody *ngFor="let interval of fuelStatistic?.intervals">
           <tr>
-            <th scope="row">1</th>
-            <td>{{fuelFlatResult?.startDate}}</td>
-            <td>{{fuelFlatResult?.startValue}}</td>
-            <td>{{fuelFlatResult?.endDescription}}</td>
+            <td>{{interval.begin | date:'dd/MM/yy'}} - {{interval.end | date:'dd/MM/yy'}} </td>
+            <td>{{interval.beginFuel.value}}</td>
+            <td>{{interval.beginFuel.noValueReason}}</td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>{{fuelFlatResult?.endDate}}</td>
-            <td>{{fuelFlatResult?.endValue}}</td>
-            <td>{{fuelFlatResult?.endDescription}}</td>
-          </tr>
-          <tr>
           </tbody>
         </table>
         <img class="img-fluid" id="scheme1" src="assets/images/sheme1.png">
 
+
       </p-tabPanel>
       <p-tabPanel header="одометр">
-        <div class="form-group">
-          <div class="container-fluid">
-            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
-            <p-dropdown
-              [(ngModel)]="selectedUnit"
-              [options]="units"
-              [style]="{'width':'100px'}"
-              class="col-sm-6 col-lg-9 col-xl-9"
-              editable="true"
-              name="Юнит"
-              optionLabel="id"
-              required="true">
-            </p-dropdown>
-          </div>
+        <app-unit-picker (selChanged)="selectorChanged($event)"></app-unit-picker>
+
+        <div class="form-group container">
+          <label class="control-label col-sm-2">По дням</label>
+          <p-inputSwitch
+            (onChange)="handleOdoDaylyChange($event)"
+            [(ngModel)]="daylyOdoChecked"
+            class="col-sm-2"
+            styleClass="padding-left: 20px">По дням
+          </p-inputSwitch>
 
           <div class="row">
-            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
-            <div class="col-sm-6 col-lg-9 col-xl-9">
-              <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
-            </div>
-          </div>
-
-          <div class="row">
-            <label class="control-label col-sm-6 col-lg-3">Период по</label>
-            <div class="col-sm-6 col-lg-9 col-xl-9">
-              <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
-            </div>
+            <div class="col-sm-2"></div>
+            <p-button (onClick)="odometer($event)"
+                      label="Одометр"
+                      class="col-sm-2"
+                      style="padding-left: 20px"
+                      styleClass="ui-button-success"></p-button>
           </div>
         </div>
 
-        <h5 class="first">По дням</h5>
-        <p-inputSwitch [(ngModel)]="daylychecked" styleClass="padding-left: 20px">По дням</p-inputSwitch>
-
-        <div class="row">
-          <p-button (onClick)="odometer($event)"
-                    label="Одометр"
-                    style="padding-left: 20px"
-                    styleClass="ui-button-success"></p-button>
-        </div>
-        <h5 *ngIf="odoStatistic">Ответ по топливу:</h5>
+        <h5 *ngIf="odoStatistic">Показания по одометру:</h5>
         <br>
 
 
         <table *ngIf="odoStatistic" class="table table-bordered">
           <thead class="thead-light">
           <tr>
-            <th scope="col-sm-3">#</th>
-            <th scope="col-sm-3">Дата</th>
-            <th scope="col-sm-3">Количество</th>
-            <th scope="col-sm-3">Примечание</th>
+            <th scope="col-sm-4">Дата</th>
+            <th scope="col-sm-4">Показанания начало</th>
+            <th scope="col-sm-4">Показанания конец</th>
+            <th scope="col-sm-4">Итоговое показание</th>
+            <th scope="col-sm-4">Примечание</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody *ngFor="let odointerv of odoStatistic?.intervals">
           <tr>
-            <th scope="row">1</th>
-            <td>{{odoStatistic?.startDate}}</td>
-            <td>{{odoStatistic?.startValue}}</td>
-            <td>{{odoStatistic?.endDescription}}</td>
+            <td>{{odointerv.begin | date:'dd/MM/yy'}} - {{odointerv.end | date:'dd/MM/yy'}} </td>
+            <td>{{odointerv.beginMileageKm.value}}</td>
+            <td>{{odointerv.endMileageKm.value}}</td>
+            <td>{{odointerv.totalMileageKm.value}}</td>
+            <td>{{odointerv.totalMileageKm.noValueReason}} {{odointerv.beginMileageKm.noValueReason}}
+              {{odointerv.totalMileageKm.noValueReason}}</td>
+            <!--<td>{{odointerv.}}</td>-->
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>{{odoStatistic?.endDate}}</td>
-            <td>{{odoStatistic?.endValue}}</td>
-            <td>{{odoStatistic?.endDescription}}</td>
-          </tr>
-          <tr>
           </tbody>
         </table>
         <img class="img-fluid" id="scheme2" src="assets/images/sh_odometer.png">
