@@ -12,31 +12,24 @@ export class ScoutService {
   public getUnits (): Observable<number[]> {
     return this.http.get<number[]>(this.scoutIdsURL);
   }
-  public getFuel(unit: Unit, startDate: Date, endDate: Date): Observable<FuelStatistic> {
-    console.log('SelectedUnit: ' + unit.id);
-    console.log('StartDate: ' + startDate);
-    console.log('EndDate: ' + endDate);
-    console.log('Date To String:' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00');
+  public getFuel(unit: Unit, startDate: Date, endDate: Date, dayly: boolean): Observable<FuelStatistic> {
+    // console.log('Date To String:' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00');
+    console.log('Date To String:' + startDate.getFullYear() + '%2F' + startDate.getMonth() + '%2F' + startDate.getDate() + ' 00:00:00');
     return this.http.get<FuelStatistic>(this.scoutFuelURL +
-      'request.unitId=' + unit.id +
-      '&request.beginDateTime=' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00' +
-      '&request.endDateTime=' + endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate() + ' 01:01:00');
+      this.requestHelper(unit, startDate, endDate, dayly));
   }
-  public getOdometer(unit: Unit, startDate: Date, endDate: Date): Observable<OdoStatistic> {
-    console.log('SelectedUnit: ' + unit.id);
-    console.log('StartDate: ' + startDate);
-    console.log('EndDate: ' + endDate);
+  public getOdometer(unit: Unit, startDate: Date, endDate: Date, dayly: boolean): Observable<OdoStatistic> {
     console.log('Date To String:' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00');
     return this.http.get<OdoStatistic>(this.scoutFuelURL +
-      'request.unitId=' + unit.id +
-      '&request.beginDateTime=' + startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate() + ' 00:00:00' +
-      '&request.endDateTime=' + endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate() + ' 01:01:00');
+      this.requestHelper(unit, startDate, endDate, dayly));
   }
-
-  public test(unit: Unit, startDate: Date, endDate: Date): Observable<FuelStatistic> {
-    return this.http.get<FuelStatistic>(this.scoutFuelURL +
-      'request.unitId=' + 51007 +
-      '&request.beginDateTime=' + '2018/10/10 00:00:00' +
-      '&request.endDateTime=' + '2018/11/11 00:00:00');
+  private requestHelper(unit: Unit, startDate: Date, endDate: Date, dayly: boolean): string {
+    let pathstring = 'request.unitId=' + unit.id + '&request.beginDateTime=' + startDate.getFullYear() + '%2F' + startDate.getMonth()
+      + '%2F' + startDate.getDate() + ' 00:00:00' + '&request.endDateTime=' + endDate.getFullYear()
+      + '%2F' + endDate.getMonth() + '%2F' + endDate.getDate() + ' 00:00:00';
+    if (dayly) {
+      pathstring = pathstring + '&request.interval=day';
+    }
+    return pathstring;
   }
 }

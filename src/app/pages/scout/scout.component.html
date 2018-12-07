@@ -1,118 +1,157 @@
-
 <div class="container-fluid align-self-end">
-   <p-panel header="Получение статистики">
-     <p-tabView>
-       <p-tabPanel header="топливо">
-         <div class="form-group">
-           <div class="container-fluid">
-             <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
-             <p-dropdown
-               class="col-sm-6 col-lg-9 col-xl-9"
-               [options]="units"
-               optionLabel="id"
-               [(ngModel)]="selectedUnit"
-               [style]="{'width':'100px'}"
-               editable="true"
-               required="true"
-               name="Юнит">
-             </p-dropdown>
-           </div>
+  <p-panel header="Получение статистики">
+    <p-tabView>
+      <p-tabPanel header="топливо">
+        <div class="form-group">
+          <div class="container-fluid">
+            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
+            <p-dropdown
+              [(ngModel)]="selectedUnit"
+              [options]="units"
+              [style]="{'width':'100px'}"
+              class="col-sm-6 col-lg-9 col-xl-9"
+              editable="true"
+              name="Юнит"
+              optionLabel="id"
+              required="true">
+            </p-dropdown>
+          </div>
 
-           <div class="row">
-             <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
-             <div class="col-sm-6 col-lg-9 col-xl-9">
-               <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
-             </div>
-           </div>
+          <div class="row">
+            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
+            <div class="col-sm-6 col-lg-9 col-xl-9">
+              <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
+            </div>
+          </div>
 
-           <div class="row">
-             <label class="control-label col-sm-6 col-lg-3">Период по</label>
-             <div class="col-sm-6 col-lg-9 col-xl-9">
-               <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
-             </div>
-           </div>
-         </div>
+          <div class="row">
+            <label class="control-label col-sm-6 col-lg-3">Период по</label>
+            <div class="col-sm-6 col-lg-9 col-xl-9">
+              <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
+            </div>
+          </div>
+        </div>
 
-         <div class="row">
-           <p-button label="Топливо"
-                     style="padding-left: 20px"
-                     (onClick)="fuel($event)"
-                     styleClass="ui-button-success"></p-button>
+        <h5 class="first">По дням</h5>
+        <p-inputSwitch [(ngModel)]="daylychecked" styleClass="padding-left: 20px">По дням</p-inputSwitch>
 
-         </div>
-         <h5 *ngIf="fuelStatistic">Ответ по топливу:</h5>
-         <br>
+        <div class="row">
+          <p-button (onClick)="fuel($event)"
+                    label="Топливо"
+                    style="padding-left: 20px"
+                    styleClass="ui-button-success"></p-button>
 
-
-         <table *ngIf="fuelFlatResult" class="table table-bordered">
-           <thead class="thead-light">
-           <tr>
-             <th scope="col-sm-3">#</th>
-             <th scope="col-sm-3">Дата</th>
-             <th scope="col-sm-3">Количество</th>
-             <th scope="col-sm-3">Примечание</th>
-           </tr>
-           </thead>
-           <tbody>
-           <tr>
-             <th scope="row">1</th>
-             <td>{{fuelFlatResult?.startDate}}</td>
-             <td>{{fuelFlatResult?.startValue}}</td>
-             <td>{{fuelFlatResult?.endDescription}}</td>
-           </tr>
-           <tr>
-             <th scope="row">1</th>
-             <td>{{fuelFlatResult?.endDate}}</td>
-             <td>{{fuelFlatResult?.endValue}}</td>
-             <td>{{fuelFlatResult?.endDescription}}</td>
-           </tr>
-           <tr>
-           </tbody>
-         </table>
-         <img id="scheme1" class="img-fluid" src="assets/images/sheme1.png">
-
-       </p-tabPanel>
-       <p-tabPanel header="одометр">
-         <div class="form-group">
-           <div class="container-fluid">
-             <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
-             <p-dropdown
-               class="col-sm-6 col-lg-9 col-xl-9"
-               [options]="units"
-               optionLabel="id"
-               [(ngModel)]="selectedUnit"
-               [style]="{'width':'100px'}"
-               editable="true"
-               required="true"
-               name="Юнит">
-             </p-dropdown>
-           </div>
-
-           <div class="row">
-             <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
-             <div class="col-sm-6 col-lg-9 col-xl-9">
-               <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
-             </div>
-           </div>
-
-           <div class="row">
-             <label class="control-label col-sm-6 col-lg-3">Период по</label>
-             <div class="col-sm-6 col-lg-9 col-xl-9">
-               <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
-             </div>
-           </div>
-         </div>
+        </div>
+        <h5 *ngIf="fuelStatistic">Ответ по топливу:</h5>
+        <br>
 
 
-         <div class="row">
-         <p-button label="Одометр"
-                   style="padding-left: 20px"
-                   (onClick)="fuel($event)"
-                   styleClass="ui-button-success"></p-button>
-         </div>
-         <img id="scheme2" class="img-fluid" src="assets/images/sh_odometer.png">
-       </p-tabPanel>
-     </p-tabView>
+        <table *ngIf="fuelFlatResult" class="table table-bordered">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col-sm-3">#</th>
+            <th scope="col-sm-3">Дата</th>
+            <th scope="col-sm-3">Количество</th>
+            <th scope="col-sm-3">Примечание</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{fuelFlatResult?.startDate}}</td>
+            <td>{{fuelFlatResult?.startValue}}</td>
+            <td>{{fuelFlatResult?.endDescription}}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>{{fuelFlatResult?.endDate}}</td>
+            <td>{{fuelFlatResult?.endValue}}</td>
+            <td>{{fuelFlatResult?.endDescription}}</td>
+          </tr>
+          <tr>
+          </tbody>
+        </table>
+        <img class="img-fluid" id="scheme1" src="assets/images/sheme1.png">
+
+      </p-tabPanel>
+      <p-tabPanel header="одометр">
+        <div class="form-group">
+          <div class="container-fluid">
+            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Ид бензовоза: </label>
+            <p-dropdown
+              [(ngModel)]="selectedUnit"
+              [options]="units"
+              [style]="{'width':'100px'}"
+              class="col-sm-6 col-lg-9 col-xl-9"
+              editable="true"
+              name="Юнит"
+              optionLabel="id"
+              required="true">
+            </p-dropdown>
+          </div>
+
+          <div class="row">
+            <label class="control-label col-sm-6 col-lg-3 col-xl-3">Период от</label>
+            <div class="col-sm-6 col-lg-9 col-xl-9">
+              <p-calendar [(ngModel)]="startDate" required="true"></p-calendar>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="control-label col-sm-6 col-lg-3">Период по</label>
+            <div class="col-sm-6 col-lg-9 col-xl-9">
+              <p-calendar [(ngModel)]="endDate" required="true"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="first">По дням</h5>
+        <p-inputSwitch [(ngModel)]="daylychecked" styleClass="padding-left: 20px">По дням</p-inputSwitch>
+
+        <div class="row">
+          <p-button (onClick)="odometer($event)"
+                    label="Одометр"
+                    style="padding-left: 20px"
+                    styleClass="ui-button-success"></p-button>
+        </div>
+        <h5 *ngIf="odoStatistic">Ответ по топливу:</h5>
+        <br>
+
+
+        <table *ngIf="odoStatistic" class="table table-bordered">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col-sm-3">#</th>
+            <th scope="col-sm-3">Дата</th>
+            <th scope="col-sm-3">Количество</th>
+            <th scope="col-sm-3">Примечание</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{odoStatistic?.startDate}}</td>
+            <td>{{odoStatistic?.startValue}}</td>
+            <td>{{odoStatistic?.endDescription}}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>{{odoStatistic?.endDate}}</td>
+            <td>{{odoStatistic?.endValue}}</td>
+            <td>{{odoStatistic?.endDescription}}</td>
+          </tr>
+          <tr>
+          </tbody>
+        </table>
+        <img class="img-fluid" id="scheme2" src="assets/images/sh_odometer.png">
+      </p-tabPanel>
+      <p-tabPanel header="Swagger">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item"
+                  src="http://localhost:8090/webjars/swagger-ui/index.html?url=http://localhost:8090/scout/api-doc"></iframe>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
   </p-panel>
 </div>
 

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {ButtonModule, CalendarModule, DropdownModule, PanelModule, TabViewModule} from 'primeng/primeng';
+import {ButtonModule, CalendarModule, DropdownModule, InputSwitchModule, PanelModule, TabViewModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {ScoutService} from './services/scout.service';
@@ -28,6 +28,7 @@ const routes: Routes = [
     TableModule,
     TabViewModule,
     HttpClientModule,
+    InputSwitchModule,
     CalendarModule,
     PanelModule,
     FormsModule,

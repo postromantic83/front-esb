@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Unit} from '../../model/unit.model';
-import {FuelFlatResult} from '../../model/fuel-flat-result.model';
+import {FlatResult} from '../../model/flat-result.model';
 import {FuelStatistic} from '../../model/fuelstatistic.model';
 import {ScoutService} from '../../services/scout.service';
 import {OdoStatistic} from '../../model/odo_statistic.model';
@@ -13,11 +13,13 @@ import {OdoStatistic} from '../../model/odo_statistic.model';
 export class ScoutComponent implements OnInit{
   title = 'front';
   public units: Unit[];
-  public fuelFlatResult: FuelFlatResult;
+  public fuelFlatResult: FlatResult;
+  public odoFlatResult: FlatResult;
   public fuelStatistic: FuelStatistic[];
   public odoStatistic: OdoStatistic[];
   selectedUnit: Unit;
   public ids: number[];
+  public  daylychecked: boolean;
   startDate: Date;
   endDate: Date;
   // constructor (private scoutService: ScoutService) { }
@@ -46,17 +48,14 @@ export class ScoutComponent implements OnInit{
   }
   fuel() {
     console.log('Получение топлива');
-    this.scoutService.getFuel(this.selectedUnit, this.startDate, this.endDate).subscribe(
+    this.scoutService.getFuel(this.selectedUnit, this.startDate, this.endDate, this.daylychecked).subscribe(
       (fuelStatistic: FuelStatistic) => {
         // const data = response.json();
         // this.responseResult = response.json();
         // response.forEach(function(value) {
         this.fuelStatistic = [fuelStatistic];
         if (fuelStatistic) {
-          console.log('UnitId: ' + fuelStatistic.unitId);
-          console.log('UnitId: ' + fuelStatistic.unitId);
-          console.log('Begin: ' + fuelStatistic.intervals[0].begin);
-          this.fuelFlatResult = new FuelFlatResult();
+          this.fuelFlatResult = new FlatResult();
           this.fuelFlatResult.unitId = fuelStatistic.unitId;
           this.fuelFlatResult.startDate = fuelStatistic.intervals[0].begin;
           this.fuelFlatResult.endDate = fuelStatistic.intervals[0].end;
@@ -70,24 +69,17 @@ export class ScoutComponent implements OnInit{
   }
   odometer() {
     console.log('Статистика по одометру');
-    this.scoutService.getOdometer(this.selectedUnit, this.startDate, this.endDate).subscribe(
+    this.scoutService.getOdometer(this.selectedUnit, this.startDate, this.endDate, this.daylychecked).subscribe(
       (odoStatistic: OdoStatistic) => {
-        // const data = response.json();
-        // this.responseResult = response.json();
-        // response.forEach(function(value) {
         this.odoStatistic = [odoStatistic];
         if (odoStatistic) {
-          console.log('UnitId: ' + odoStatistic.unitId);
-          console.log('UnitId: ' + odoStatistic.unitId);
-          console.log('Begin: ' + odoStatistic.intervals[0].begin);
-          // this.odoStatistic = new OdoStatistic();
-          // this.odoStatistic.unitId = fuelStatistic.unitId;
-          // this.odoStatistic.startDate = fuelStatistic.intervals[0].begin;
-          // this.odoStatistic.endDate = fuelStatistic.intervals[0].end;
-          // this.odoStatistic.startValue = fuelStatistic.intervals[0].beginFuel.value;
-          // this.odoStatisti.endValue = fuelStatistic.intervals[0].endFuel.value;
+          this.odoFlatResult = new FlatResult();
+          this.odoFlatResult.unitId = odoStatistic.unitId;
+          this.odoFlatResult.startDate = odoStatistic.intervals[0].begin;
+          this.odoFlatResult.endDate = odoStatistic.intervals[0].end;
+          this.odoFlatResult.startValue = odoStatistic.intervals[0].beginMileageKm.value;
+          this.odoFlatResult.endValue = odoStatistic.intervals[0].endMileageKm.value;
         }
-        // });
       },
       error => console.log(error)
     );
