@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build",
+    "start": "npm install -g @angular/cli \n ng new projectFolder \n ng build --prod \n ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
